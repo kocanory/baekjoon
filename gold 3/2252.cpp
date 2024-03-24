@@ -5,9 +5,6 @@
 
 using namespace std;
 
-unordered_map<int, vector<int>> graph;
-vector<int> inDeg;
-
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -15,8 +12,9 @@ int main()
     
     int n, m;
     cin >> n >> m;
-    
-    inDeg.resize(n + 1, 0);
+
+    unordered_map<int, vector<int>> graph;
+    vector<int> inDeg(n + 1, 0);
     
     while(m--){
         int t, s;
@@ -29,15 +27,13 @@ int main()
     
     for(int i = 1;i <= n;i++)
         if(inDeg[i] == 0) q.push(i);
-    
+        
     while(!q.empty()){
         int now = q.front(); q.pop();
         cout << now << " ";
-        for(auto next : graph[now]){
-            inDeg[next]--;
-            if(inDeg[next] == 0) q.push(next);
+        for(auto &next : graph[now]){
+            if(--inDeg[next] == 0) q.push(next);
         }
     }
-    
     return 0;
 }
