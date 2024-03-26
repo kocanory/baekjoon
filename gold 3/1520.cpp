@@ -7,8 +7,7 @@ int dx[] = {-1, 0, 1, 0};
 int dy[] = {0, 1, 0, -1};
 
 int n, m;
-vector<vector<int>> arr;
-vector<vector<int>> dp;
+vector<vector<int>> arr, dp;
 
 int dfs(int x, int y){
     if(x == n - 1 && y == m - 1) return 1;
@@ -25,18 +24,18 @@ int dfs(int x, int y){
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
+    ios::sync_with_stdio(false);
     cin.tie(NULL);
-    
+
     cin >> n >> m;
+
+    arr.assign(n, vector<int>(m));
+    dp.assign(n, vector<int>(m, -1));
     
-    arr.assign(n + 1, vector<int>(m + 1, 0));
-    dp.assign(n + 1, vector<int>(m + 1, -1));
-    
-    for(int i = 0;i < n;i++)
-        for(int j =0;j < m;j++)
+    for(int i =0;i < n;i++)
+        for(int j = 0;j < m;j++)
             cin >> arr[i][j];
-    
+
     cout << dfs(0, 0) << "\n";
     return 0;
 }
