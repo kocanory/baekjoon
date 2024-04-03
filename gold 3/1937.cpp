@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <tuple>
 
 using namespace std;
 
@@ -9,27 +7,26 @@ int dx[] = {-1, 0, 1, 0};
 int dy[] = {0, 1, 0, -1};
 
 int n, result = 1;
-vector<vector<int>> arr;
-vector<vector<int>> dp;
+vector<vector<int>> arr, dp;
 
 int dfs(int x, int y){
-    bool flag = true;
-    if(dp[x][y] != -1) return dp[x][y];
-    for(int d = 0;d < 4 && flag;d++){
+    int d;
+    for(d = 0;d < 4;d++){
         int nx = x + dx[d], ny = y + dy[d];
         if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-        if(arr[x][y] < arr[nx][ny]) flag = false;
+        if(arr[x][y] < arr[nx][ny]) break;
     }
-    if(flag) return dp[x][y] = 1;
+    if(d >= 4) return dp[x][y] = 1;
+    if(dp[x][y] != -1) return dp[x][y];
+    
     dp[x][y] = 1;
     int next = 0;
-    for(int d = 0;d < 4;d++){
+    for(d = 0;d < 4;d++){
         int nx = x + dx[d], ny = y + dy[d];
         if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-        if(arr[x][y] < arr[nx][ny] )
-            next = max(next, dfs(nx, ny));
+        if(arr[x][y] < arr[nx][ny]) next = max(next, dfs(nx, ny));
     }
-    return dp[x][y] = dp[x][y] + next;
+    return dp[x][y] += next;
 }
 
 
@@ -45,7 +42,7 @@ int main()
     for(int i = 0;i < n;i++)
         for(int j = 0;j < n;j++)
             cin >> arr[i][j];
-            
+
     for(int i = 0;i < n;i++)
         for(int j = 0;j < n;j++)
             if(dp[i][j] == -1)
