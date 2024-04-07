@@ -1,19 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <climits>
 
 using namespace std;
 
 int n, m, s, e;
 vector<vector<int>> graph;
-vector<int> d, route, trace;
+vector<int> d, trace, route;
 vector<bool> visited;
 
-int getIndex(){
-    int min = INT_MAX;
-    int index = 0;
+int findIdx(){
+    int min = 1e9, index;
     for(int i = 1;i <= n;i++){
-        if(d[i] < min && !visited[i]){
+        if(min > d[i] && !visited[i]){
             index = i;
             min = d[i];
         }
@@ -24,18 +22,19 @@ int getIndex(){
 void dijkstra(){
     for(int i = 1;i <= n;i++){
         d[i] = graph[s][i];
-        route[i] = s;
+        trace[i] = s;
     }
+    
     visited[s] = true;
     
     for(int i = 0;i < n - 2;i++){
-        int cur = getIndex();
+        int cur = findIdx();
         visited[cur] = true;
         for(int j = 1;j <= n;j++){
             if(!visited[j]){
                 if(d[cur] + graph[cur][j] < d[j]){
-                    route[j] = cur;
                     d[j] = d[cur] + graph[cur][j];
+                    trace[j] = cur;
                 }
             }
         }
@@ -50,28 +49,28 @@ int main()
     cin >> n >> m;
     graph.assign(n + 1, vector<int>(n + 1, 1e9));
     d.assign(n + 1, 1e9);
+    trace.assign(n + 1, 1e9);
     visited.assign(n + 1, false);
-    route.assign(n + 1, -1);
     
     for(int i = 0;i < m;i++){
         int x, y, cost;
-        cin >> x >> y;
-        cin >> cost;
+        cin >> x >> y >> cost;
         graph[x][y] = min(graph[x][y], cost);
     }
     
     cin >> s >> e;
-    
     dijkstra();
     cout << d[e] << "\n";
     
-    trace.push_back(e);
+    route.push_back(e);
     for(int i = e;i != s;){
-        trace.push_back(route[i]);
-        i = route[i];
+        route.push_back(trace[i]);
+        i = trace[i];
     }
-    cout << trace.size() << "\n";
-    for(int i = trace.size() - 1;i >= 0;i--)
-        cout << trace[i] << " ";
+    
+    cout << route.size() << "\n";
+    
+    for(int i = route.size() - 1;i >= 0;i--)
+        cout << route[i] << " ";
     return 0;
 }
