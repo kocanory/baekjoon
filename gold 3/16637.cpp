@@ -6,35 +6,33 @@ using namespace std;
 int n, answer = INT_MIN;
 string s;
 
-int calc(int a, int b, char oper){
+int calc(int a, int b, char op){
     int result = a;
-    switch(oper){
-        case '+' : result += b; break;
-        case '-' : result -= b; break;
-        case '*' : result *= b; break;
+    switch(op){
+        case '+': result += b; break;
+        case '*': result *= b; break;
+        case '-': result -= b; break;
     }
     return result;
 }
 
-void dfs(int index, int cur){
+void dfs(int index, int val){
     if(index > n - 1){
-        answer = max(answer, cur);
+        answer = max(answer, val);
         return;
     }
     char oper = (index == 0) ? '+' : s[index - 1];
-    
-    if(index + 2 < n){
+    if(index < n - 2){
         int bracket = calc(s[index] - '0', s[index + 2] - '0', s[index + 1]);
-        dfs(index + 4, calc(cur, bracket, oper));
+        dfs(index + 4, calc(val, bracket, oper));
     }
-    dfs(index + 2, calc(cur, s[index] - '0', oper));
+    dfs(index + 2, calc(val, s[index] - '0', oper));
 }
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     cin >> n >> s;
     dfs(0, 0);
     cout << answer << '\n';
