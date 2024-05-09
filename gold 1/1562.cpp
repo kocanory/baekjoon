@@ -5,7 +5,6 @@ using namespace std;
 int n, answer = 0;
 int dp[10][100][4] = {0, };
 
-
 int dfs(int num, int idx, int bit){
     int &ret = dp[num][idx][bit];
     if(ret) return ret;
