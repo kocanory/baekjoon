@@ -9,8 +9,7 @@ void dfs(int x, int y, int size){
     if(x == r && y == c){
         cout << answer << "\n";
         return;
-    }
-    
+    }    
     else if(r < x + size && c < y + size && r >= x && c >= y){
         dfs(x, y, size / 2);
         dfs(x, y + size / 2, size / 2);
