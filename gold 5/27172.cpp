@@ -5,22 +5,22 @@
 using namespace std;
 
 int n;
-vector<int> arr, score(1000001);
-unordered_map<int, bool> cards;
+vector<int> arr;
+unordered_map<int, int> score, cards;
 
-int main(){
+int main()
+{
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
     cin >> n;
     arr.assign(n, 0);
-
     for(int i = 0;i < n;i++) {
         cin >> arr[i];
-        cards[arr[i]] = true;
+        cards[arr[i]] = 1;
     }
-
+    
     for(auto &a : arr){
         for(int i = 2 * a;i <= 1000000;i += a){
             if(cards[i]){
@@ -29,7 +29,7 @@ int main(){
             }
         }
     }
-
+    
     for(auto &a : arr) cout << score[a] << " ";
     return 0;
 }
