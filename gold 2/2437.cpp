@@ -21,9 +21,9 @@ int main()
     }
 
     sort(arr.begin(), arr.end(), greater<int>());
-    for(int i = 1;i <= arr[0];i++){
+    for(int i = 1;i < arr[0];i++){
         int compare = 0;
-        for(int j = 0;j < n;j++){
+        for(int j = 1;j < n;j++){
             if(arr[j] + compare > i) continue;
             compare += arr[j];
             if(compare == i) break;
