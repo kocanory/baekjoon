@@ -48,6 +48,7 @@ int main()
         
         int num = find(1, n, 1, index);
         update(1, n, 1, num);
+        
         cout << num;
         if(i < n - 1) cout << ", ";
     }
