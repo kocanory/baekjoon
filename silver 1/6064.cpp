@@ -15,7 +15,7 @@ int main()
         cin >> m >> n >> x >> y;
         bool flag = true;
         for(int i = 0;i < n;i++){
-            if((i * m + x - y + n) % n == 0){
+            if((i * m + x - y) % n == 0){
                 cout << i * m + x << "\n";
                 flag = false;
                 break;
