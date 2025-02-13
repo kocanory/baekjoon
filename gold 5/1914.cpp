@@ -26,7 +26,6 @@ int main()
     string num = to_string(pow(2, n));
     num = num.substr(0, num.find('.'));
     num[num.length() - 1] -= 1;
-    
     cout << num << "\n";
     
     if(n <= 20) hanoi(n, 1, 2, 3);
