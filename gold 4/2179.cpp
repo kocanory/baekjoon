@@ -4,8 +4,8 @@
 
 using namespace std;
 
-int n, maxLen = 0, maxIdx = 1e9;
-string pre;
+int n;
+string pre = "";
 vector<string> arr;
 map<string, vector<int>> m;
 map<string, bool> check;
@@ -27,13 +27,9 @@ int main()
         for(int j = 0;j < s.size();j++){
             tmp += s[j];
             m[tmp].push_back(i);
-            if(m[tmp].size() > 1 && maxLen <= tmp.size()){
-                if (maxLen == tmp.size() && m[pre][0] > m[tmp][0])
+            if(m[tmp].size() > 1 && pre.size() <= tmp.size()){
+                if ((pre.size() == tmp.size() && m[pre][0] > m[tmp][0]) || pre.size() < tmp.size())
                     pre = tmp;
-                else if(maxLen < tmp.size()){
-                    maxLen = tmp.size();
-                    pre = tmp;
-                }
             }
         }
     }
